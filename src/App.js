@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter,Routes,Route} from "react-router-dom"
+import Feed from "./Scenes/Feed";
+import SignUp from './Scenes/SignUp';
+import Profile from './Scenes/Profile';
 
 function App() {
+
+  const GlobalState={
+    user:{}
+  }
+  
+  const updateUser=(u)=>{
+      GlobalState.user.name=u.name
+      GlobalState.user.email=u.email
+      GlobalState.user.DateOfBirth=u.DateOfBirth
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+          <Route path="signup" element={<SignUp setProfile={updateUser} />} />       
+          <Route path="feed" element={<Feed />} /> 
+          <Route path="profile" element={<Profile user={GlobalState.user} />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
